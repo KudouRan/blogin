@@ -77,9 +77,11 @@ func appSign2(params map[string]string) string {
 func Handler2(w http.ResponseWriter, r *http.Request) {
 	client := getClient2()
 	api := "https://passport.bilibili.com/x/passport-tv-login/qrcode/poll"
+	authCode := r.URL.Query().Get("code")
 	data := appSign2(map[string]string{
-		"ts":       strconv.FormatInt(time.Now().Unix(), 10),
-		"local_id": "0",
+		"ts":        strconv.FormatInt(time.Now().Unix(), 10),
+		"local_id":  "0",
+		"auth_code": authCode,
 	})
 	var qrBody QrLogin
 	resp, _ := client.R().SetBody(data).SetResult(&qrBody).Post(api)

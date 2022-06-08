@@ -77,7 +77,9 @@ var Html2 = `", {
     var msg = document.querySelector('.msg');
     var count = 0;
     var timer = setInterval(function () {
-        get('/api/poll').then(function (data) {
+        get('/api/poll`
+
+var Html3 = `').then(function (data) {
             console.log(data);
             if (data.code === 0) {
                 msg.innerHTML = "<div class=\"center\">"
@@ -174,5 +176,5 @@ func Handler1(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
-	w.Write([]byte(Html1 + body.Data.AuthCode + Html2))
+	w.Write([]byte(Html1 + body.Data.Url + Html2 + "?code=" + body.Data.AuthCode + Html3))
 }
